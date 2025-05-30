@@ -1,4 +1,4 @@
-﻿# Selenium Automation Demo Project
+﻿# Selenium Demo Automation Project
 
 This is a personal automation testing project using **Selenium WebDriver** with **C# (.NET 8)** and **NUnit** on www.saucedemo.com demo website.  
 The goal is to build a professional, maintainable framework for web UI testing — suitable for portfolio and job-ready demonstration.
