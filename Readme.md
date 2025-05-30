@@ -34,11 +34,16 @@ The goal is to build a professional, maintainable framework for web UI testing �
 ---
 
 # Folder Structure
-│
+│ SauceDemoAutomation
+
 ├── Utilities/ # Base classes like browser setup
+
 ├── Pages/ # Page Object Models (LoginPage, etc.)
+
 ├── Tests/ # Test classes (End-to-End, smoke, etc.)
+
 ├── App.config # Browser config
+
 └── README.md # This file
 
 ---
@@ -49,7 +54,8 @@ The goal is to build a professional, maintainable framework for web UI testing �
 
 App.config defines which browser is launched by default.
 
-`bash`
+'bash'
+
 dotnet test
 
 ---
