@@ -7,6 +7,7 @@ using System.Configuration;
 
 namespace SauceDemoAutomation.Utilities
 {
+    // Base class for initializing and closing the browser for tests
     internal class Base
     {
         public IWebDriver driver;
@@ -15,6 +16,7 @@ namespace SauceDemoAutomation.Utilities
         [SetUp]
         public void Setup()
         {
+            // Get browser name from App.config
             if (browserName == null)
             {
                 browserName = ConfigurationManager.AppSettings["browser"];
@@ -27,6 +29,7 @@ namespace SauceDemoAutomation.Utilities
             driver.Url = "https://www.saucedemo.com/";
         }
 
+        // Launch and configure browser based on the provided name 
         public void InitBrowser(string browserName)
         {
             switch (browserName)
@@ -37,8 +40,11 @@ namespace SauceDemoAutomation.Utilities
                     break;
                 case "Chrome":
                     new WebDriverManager.DriverManager().SetUpDriver(new ChromeConfig());
+
+                    // Disable Chrome's password leak warning popup
                     ChromeOptions options = new ChromeOptions();
                     options.AddUserProfilePreference("profile.password_manager_leak_detection", false);
+
                     driver = new ChromeDriver(options);
                     break;
                 case "Firefox":
@@ -50,14 +56,21 @@ namespace SauceDemoAutomation.Utilities
             }
         }
 
+        // Getter for the WebDriver instance
         public IWebDriver GetDriver()
         {
             return driver;
         }
 
+        public static JsonReader GetJsonData()
+        {
+            return new JsonReader();
+        }
+
         [TearDown]
         public void TearDown()
         {
+            // Close and clean up browser after test
             if (driver != null)
             {
                 driver.Close();
