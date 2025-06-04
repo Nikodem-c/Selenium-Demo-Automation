@@ -22,6 +22,8 @@ namespace SauceDemoAutomation.Pages
 
         // Logs into the application using provided credentials
         public ProductsPage Login(string user, string pass)
+        //Logs into the application using provided credentials
+        public void Login(string user, string pass)
         {
             username.SendKeys(user);
             password.SendKeys(pass);

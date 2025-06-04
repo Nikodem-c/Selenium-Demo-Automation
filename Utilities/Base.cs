@@ -20,6 +20,7 @@ namespace SauceDemoAutomation.Utilities
         [SetUp]
         public void Setup()
         {
+            // Get browser name from App.config
             if (browserName == null)
             {
                 browserName = ConfigurationManager.AppSettings["browser"];
@@ -63,7 +64,7 @@ namespace SauceDemoAutomation.Utilities
             }
         }
 
-        // Utility method to access the initialized WebDriver from derived classes.
+        // Getter for the WebDriver instance
         public IWebDriver GetDriver()
         {
             return driver;
@@ -79,6 +80,7 @@ namespace SauceDemoAutomation.Utilities
         [TearDown]
         public void TearDown()
         {
+            // Close and clean up browser after test
             if (driver != null)
             {
                 driver.Close();
