@@ -7,10 +7,15 @@ using System.Configuration;
 
 namespace SauceDemoAutomation.Utilities
 {
+    // Base test class for initializing and tearing down the WebDriver
     internal class Base
     {
-        public IWebDriver driver;
-        string browserName;
+        /// <summary>
+        /// Setup method runs before each test.
+        /// It initializes the WebDriver based on browser config (default: Chrome).
+        /// </summary>
+        public IWebDriver driver = null!;
+        string browserName = null!;
 
         [SetUp]
         public void Setup()
@@ -27,6 +32,11 @@ namespace SauceDemoAutomation.Utilities
             driver.Url = "https://www.saucedemo.com/";
         }
 
+        /// <summary>
+        /// Initializes the WebDriver instance based on specified browser.
+        /// Supports Chrome, Edge, and Firefox.
+        /// </summary>
+        /// <param name="browserName">The name of the browser to initialize.</param>
         public void InitBrowser(string browserName)
         {
             switch (browserName)
@@ -37,8 +47,11 @@ namespace SauceDemoAutomation.Utilities
                     break;
                 case "Chrome":
                     new WebDriverManager.DriverManager().SetUpDriver(new ChromeConfig());
+
+                    // Disable Chrome password leak detection popup
                     ChromeOptions options = new ChromeOptions();
                     options.AddUserProfilePreference("profile.password_manager_leak_detection", false);
+
                     driver = new ChromeDriver(options);
                     break;
                 case "Firefox":
@@ -50,11 +63,19 @@ namespace SauceDemoAutomation.Utilities
             }
         }
 
+        // Utility method to access the initialized WebDriver from derived classes.
         public IWebDriver GetDriver()
         {
             return driver;
         }
 
+        // Utility method to get a fresh instance of JsonReader for reading test data.
+        public static JsonReader GetJsonData()
+        {
+            return new JsonReader();
+        }
+
+        // Cleanup method runs after each test.
         [TearDown]
         public void TearDown()
         {
