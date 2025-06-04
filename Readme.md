@@ -4,17 +4,19 @@
 
 # Project Status
 
-✅ Base test setup implemented  
-✅ App.config for browser selection  
-✅ Initial folder structure:  
-- `Utilities/` (Base classes)  
-- `Pages/` (Page Object Model - LoginPage placeholder created)
-- `Tests/` (Contains a demo test for initial setup)
+- ✅ Base class browser setup implemented
+- ✅ `JsonReader` utility for data extraction from JSON
+- ✅ `LoginPage` Page Object Model implemented
+- ✅ `ProductsPage` Page Object Model implemented
+- ✅ `CartPage` Page Object Model implemented
+- ✅ `End2End` test setup up to `ProductsPage`
+- ✅ `App.config` for browser selection
+- ✅ `Data.json` for storing login & product data
 
 🟡 Work in progress:
-- LoginPage expand
-- ProductPage implementation
-- Data-driven login test
+- 🟡 Extend End-to-End test flow (e.g., cart, checkout)
+- 🟡 `CheckOutPage` Page Object Model
+- 🟡 Smoke test
 - HTML reporting
 - CI integration (GitHub Actions)
 
@@ -22,25 +24,25 @@
 
 # Technologies Used
 
-- C# (.NET 8)
-- Selenium WebDriver
-- NUnit
-- WebDriverManager
-- App.config configuration
-- Page Object Pattern (Ongoing)
+- **C# (.NET 8)**
+- **Selenium WebDriver**
+- **NUnit** (Test framework)
+- **WebDriverManager** (Driver binaries management)
+- **Page Object Model** (Design pattern)
+- **App.config** (Environment config)
 
 ---
 
 # Folder Structure
 │ SauceDemoAutomation
 
-├── Utilities/ # Base classes like browser setup
+├── Utilities/ # Base class, Data.json, JsonReader.cs
 
-├── Pages/ # Page Object Models (LoginPage, etc.)
+├── Pages/ # Page Objects: LoginPage, ProductsPage, CartPage
 
 ├── Tests/ # Test classes (End-to-End, smoke, etc.)
 
-├── App.config # Browser config
+├── App.config # Browser configuration (Chrome, Firefox, Edge)
 
 └── README.md # This file
 

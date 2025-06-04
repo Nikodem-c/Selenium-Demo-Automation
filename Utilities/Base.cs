@@ -7,11 +7,15 @@ using System.Configuration;
 
 namespace SauceDemoAutomation.Utilities
 {
-    // Base class for initializing and closing the browser for tests
+    // Base test class for initializing and tearing down the WebDriver
     internal class Base
     {
-        public IWebDriver driver;
-        string browserName;
+        /// <summary>
+        /// Setup method runs before each test.
+        /// It initializes the WebDriver based on browser config (default: Chrome).
+        /// </summary>
+        public IWebDriver driver = null!;
+        string browserName = null!;
 
         [SetUp]
         public void Setup()
@@ -29,7 +33,11 @@ namespace SauceDemoAutomation.Utilities
             driver.Url = "https://www.saucedemo.com/";
         }
 
-        // Launch and configure browser based on the provided name 
+        /// <summary>
+        /// Initializes the WebDriver instance based on specified browser.
+        /// Supports Chrome, Edge, and Firefox.
+        /// </summary>
+        /// <param name="browserName">The name of the browser to initialize.</param>
         public void InitBrowser(string browserName)
         {
             switch (browserName)
@@ -41,7 +49,7 @@ namespace SauceDemoAutomation.Utilities
                 case "Chrome":
                     new WebDriverManager.DriverManager().SetUpDriver(new ChromeConfig());
 
-                    // Disable Chrome's password leak warning popup
+                    // Disable Chrome password leak detection popup
                     ChromeOptions options = new ChromeOptions();
                     options.AddUserProfilePreference("profile.password_manager_leak_detection", false);
 
@@ -62,11 +70,13 @@ namespace SauceDemoAutomation.Utilities
             return driver;
         }
 
+        // Utility method to get a fresh instance of JsonReader for reading test data.
         public static JsonReader GetJsonData()
         {
             return new JsonReader();
         }
 
+        // Cleanup method runs after each test.
         [TearDown]
         public void TearDown()
         {
