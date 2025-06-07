@@ -5,5 +5,6 @@
   "performance_glitch_user": "performance_glitch_user",
   "error_user": "error_user",
   "visual_user": "visual_user",
-  "password": "secret_sauce"
+  "password": "secret_sauce",
+  "products": [ "Sauce Labs Onesie", "Sauce Labs Bike Light" ]
 }

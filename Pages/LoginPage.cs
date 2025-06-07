@@ -24,11 +24,13 @@ namespace SauceDemoAutomation.Pages
         private IWebElement errorMessage;
 
         //Logs into the application using provided credentials
-        public void Login(string user, string pass)
+        public ProductsPage Login(string user, string pass)
         {
             username.SendKeys(user);
             password.SendKeys(pass);
             loginButton.Click();
+            return new ProductsPage(driver);
+
         }
 
         public void AttemptLogin(string user, string pass)
