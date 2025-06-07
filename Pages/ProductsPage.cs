@@ -3,6 +3,7 @@ using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.PageObjects;
 using System.ComponentModel.Design;
 
+
 namespace SauceDemoAutomation.Pages
 {
     // Page Object Model class for the Products Page
@@ -26,6 +27,7 @@ namespace SauceDemoAutomation.Pages
         private IWebElement menuIcon;
         [FindsBy(How = How.Id, Using = "logout_sidebar_link")]
         private IWebElement logoutButton;
+
 
         // Waits until element from the Products Page is visible
         public void WaitForProductsPage()
@@ -75,6 +77,5 @@ namespace SauceDemoAutomation.Pages
             menuIcon.Click();
             logoutButton.Click();
         }
-
     }
 }

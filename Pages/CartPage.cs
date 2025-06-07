@@ -30,4 +30,3 @@ namespace SauceDemoAutomation.Pages
             checkout.Click();
         }
     }
-}

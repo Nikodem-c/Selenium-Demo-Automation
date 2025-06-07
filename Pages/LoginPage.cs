@@ -10,7 +10,6 @@ namespace SauceDemoAutomation.Pages
         public LoginPage(IWebDriver driver)
         {
             this.driver = driver;
-
             PageFactory.InitElements(driver, this);
         }
 
@@ -23,6 +22,8 @@ namespace SauceDemoAutomation.Pages
         [FindsBy(How = How.CssSelector, Using = "[data-test='error']")]
         private IWebElement errorMessage;
 
+        // Logs into the application using provided credentials
+        public ProductsPage Login(string user, string pass)
         //Logs into the application using provided credentials
         public ProductsPage Login(string user, string pass)
         {
@@ -38,6 +39,7 @@ namespace SauceDemoAutomation.Pages
             username.SendKeys(user);
             password.SendKeys(pass);
             loginButton.Click();
+            return new ProductsPage(driver);
         }
 
         // Checks for user, password, and login button fields

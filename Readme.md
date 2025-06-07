@@ -16,7 +16,8 @@
 
 🟡 Work in progress:
 - 🟡 Extend End-to-End test flow (e.g., cart, checkout)
-- 🟡 CheckOutPage Page Object Model
+- 🟡 `CheckOutPage` Page Object Model
+- 🟡 Smoke test
 - HTML reporting
 - CI integration (GitHub Actions)
 
@@ -30,6 +31,12 @@
 - WebDriverManager (Driver binaries management)
 - Page Object Model (Design pattern)
 - App.config (Environment config)
+- **C# (.NET 8)**
+- **Selenium WebDriver**
+- **NUnit** (Test framework)
+- **WebDriverManager** (Driver binaries management)
+- **Page Object Model** (Design pattern)
+- **App.config** (Environment config)
 
 ---
 
