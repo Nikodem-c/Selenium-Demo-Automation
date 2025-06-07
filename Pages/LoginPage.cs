@@ -22,8 +22,6 @@ namespace SauceDemoAutomation.Pages
         [FindsBy(How = How.CssSelector, Using = "[data-test='error']")]
         private IWebElement errorMessage;
 
-        // Logs into the application using provided credentials
-        public ProductsPage Login(string user, string pass)
         //Logs into the application using provided credentials
         public ProductsPage Login(string user, string pass)
         {
@@ -33,13 +31,11 @@ namespace SauceDemoAutomation.Pages
             return new ProductsPage(driver);
 
         }
-
         public void AttemptLogin(string user, string pass)
         {
             username.SendKeys(user);
             password.SendKeys(pass);
             loginButton.Click();
-            return new ProductsPage(driver);
         }
 
         // Checks for user, password, and login button fields

@@ -4,15 +4,15 @@
 
 # Project Status
 
-✅ Base class browser setup implemented
-✅ JsonReader utility for data extraction from JSON
-✅ LoginPage Page Object Model implemented
-✅ ProductsPage Page Object Model implemented
-✅ CartPage Page Object Model implemented
-✅ End2End test setup up to ProductsPage
-✅ Smoke test setup
-✅ App.config for browser selection
-✅ Data.json for storing login & product data
+- ✅ Base class browser setup implemented
+- ✅ JsonReader utility for data extraction from JSON
+- ✅ LoginPage Page Object Model implemented
+- ✅ ProductsPage Page Object Model implemented
+- ✅ CartPage Page Object Model implemented
+- ✅ End2End test setup up to ProductsPage
+- ✅ Smoke test setup
+- ✅ App.config for browser selection
+- ✅ Data.json for storing login & product data
 
 🟡 Work in progress:
 - 🟡 Extend End-to-End test flow (e.g., cart, checkout)
