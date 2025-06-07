@@ -45,7 +45,7 @@ namespace SauceDemoAutomation.Utilities
             {
                 throw new ArithmeticException($"Token '{token}' not found or is not an array.");
             }
-            return value.Select( v => v.ToString()).ToArray();
+            return value.Select(v => v.ToString()).ToArray();
         }
     }
 }

@@ -1,6 +1,8 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.PageObjects;
+using System.ComponentModel.Design;
+
 
 namespace SauceDemoAutomation.Pages
 {
@@ -21,6 +23,11 @@ namespace SauceDemoAutomation.Pages
         private IList<IWebElement> productsList;
         [FindsBy(How = How.ClassName, Using = "shopping_cart_link")]
         private IWebElement cart;
+        [FindsBy(How = How.Id, Using = "react-burger-menu-btn")]
+        private IWebElement menuIcon;
+        [FindsBy(How = How.Id, Using = "logout_sidebar_link")]
+        private IWebElement logoutButton;
+
 
         // Waits until element from the Products Page is visible
         public void WaitForProductsPage()
@@ -48,6 +55,27 @@ namespace SauceDemoAutomation.Pages
         {
             cart.Click();
             return new CartPage(driver);
+        }
+
+        public bool ProductsPageUrl()
+        {
+            return driver.Url.Contains("inventory");
+        }
+
+        public bool IsMenuIconVisible()
+        {
+            return menuIcon.Displayed;
+        }
+
+        public bool IsCartIconDisplayed()
+        {
+            return cart.Displayed;
+        }
+
+        public void GetLogout()
+        {
+            menuIcon.Click();
+            logoutButton.Click();
         }
     }
 }

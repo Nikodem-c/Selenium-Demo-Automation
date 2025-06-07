@@ -19,16 +19,43 @@ namespace SauceDemoAutomation.Pages
         private IWebElement password;
         [FindsBy(How = How.ClassName, Using = "submit-button")]
         private IWebElement loginButton;
+        [FindsBy(How = How.CssSelector, Using = "[data-test='error']")]
+        private IWebElement errorMessage;
 
         // Logs into the application using provided credentials
         public ProductsPage Login(string user, string pass)
         //Logs into the application using provided credentials
-        public void Login(string user, string pass)
+        public ProductsPage Login(string user, string pass)
         {
             username.SendKeys(user);
             password.SendKeys(pass);
             loginButton.Click();
             return new ProductsPage(driver);
+
+        }
+
+        public void AttemptLogin(string user, string pass)
+        {
+            username.SendKeys(user);
+            password.SendKeys(pass);
+            loginButton.Click();
+            return new ProductsPage(driver);
+        }
+
+        // Checks for user, password, and login button fields
+        public bool IsLoginFormVisible()
+        {
+            return username.Displayed && password.Displayed && loginButton.Displayed;
+        }
+
+        public bool HasLoginError()
+        {
+            return errorMessage.Text.Contains("locked out");
+        }
+
+        public bool IsErrorVisible()
+        {
+            return errorMessage.Displayed;
         }
     }
 }
