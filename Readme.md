@@ -16,8 +16,6 @@
 
 🟡 Work in progress:
 - 🟡 Extend End-to-End test flow (e.g., cart, checkout)
-- 🟡 `CheckOutPage` Page Object Model
-- 🟡 Smoke test
 - HTML reporting
 - CI integration (GitHub Actions)
 
