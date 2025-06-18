@@ -23,12 +23,6 @@
 
 # Technologies Used
 
-- C# (.NET 8)
-- Selenium WebDriver
-- NUnit (Test framework)
-- WebDriverManager (Driver binaries management)
-- Page Object Model (Design pattern)
-- App.config (Environment config)
 - **C# (.NET 8)**
 - **Selenium WebDriver**
 - **NUnit** (Test framework)
