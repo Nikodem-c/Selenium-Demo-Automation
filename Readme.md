@@ -13,10 +13,10 @@
 - ✅ Smoke test setup
 - ✅ App.config for browser selection
 - ✅ Data.json for storing login & product data
+- ✅ HTML reporting
 
 🟡 Work in progress:
 - 🟡 Extend End-to-End test flow (e.g., cart, checkout)
-- HTML reporting
 - CI integration (GitHub Actions)
 
 ---
@@ -27,6 +27,7 @@
 - **Selenium WebDriver**
 - **NUnit** (Test framework)
 - **WebDriverManager** (Driver binaries management)
+- **ExtentReports** (HTML reports)
 - **Page Object Model** (Design pattern)
 - **App.config** (Environment config)
 
