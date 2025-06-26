@@ -1,8 +1,6 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.PageObjects;
-using System.ComponentModel.Design;
-
 
 namespace SauceDemoAutomation.Pages
 {

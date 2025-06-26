@@ -14,6 +14,7 @@
 - ✅ App.config for browser selection
 - ✅ Data.json for storing login & product data
 - ✅ HTML reporting
+- ✅ Parallel test execution using ThreadLocal & NUnit ParallelScope
 
 🟡 Work in progress:
 - 🟡 Extend End-to-End test flow (e.g., cart, checkout)
@@ -30,6 +31,7 @@
 - **ExtentReports** (HTML reports)
 - **Page Object Model** (Design pattern)
 - **App.config** (Environment config)
+- **ThreadLocal<T>** (WebDriver instance isolation for parallelism)
 
 ---
 
@@ -54,9 +56,17 @@
 
 App.config defines which browser is launched by default.
 
-'bash'
+To run all tests:
 
+'bash'
 dotnet test
+
+To run tests by category:
+
+'bash'
+dotnet test --filter "Category=Smoke"
+dotnet test --filter "Category=Negative"
+dotnet test --filter "Category=End2End"
 
 ---
 

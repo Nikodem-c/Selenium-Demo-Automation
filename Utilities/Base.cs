@@ -5,7 +5,6 @@ using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Edge;
 using System.Configuration;
 using AventStack.ExtentReports;
-using AventStack.ExtentReports.Core;
 using AventStack.ExtentReports.Reporter;
 using NUnit.Framework.Interfaces;
 using AventStack.ExtentReports.Model;
@@ -19,11 +18,11 @@ namespace SauceDemoAutomation.Utilities
         /// Setup method runs before each test.
         /// It initializes the WebDriver based on browser config (default: Chrome).
         /// </summary>
-        public IWebDriver driver = null!;
+        public ThreadLocal<IWebDriver> driver = new();
         string browserName = null!;
 
         private static ExtentReports extent;
-        private static ExtentTest test;
+        private static ThreadLocal<ExtentTest> test = new();
 
         // Setup Extent Report once for all tests
         [OneTimeSetUp]
@@ -33,7 +32,7 @@ namespace SauceDemoAutomation.Utilities
             string reportDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "TestResults");
             Directory.CreateDirectory(reportDir);
 
-            string timeStamp = DateTime.Now.ToString("yyyy/MM/dd_HH:mm:ss");
+            string timeStamp = DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss");
             var htmlReporter = new ExtentSparkReporter(Path.Combine(reportDir, $"TestsReport_{timeStamp}.html"));
             extent = new ExtentReports();
             extent.AttachReporter(htmlReporter);
@@ -43,21 +42,21 @@ namespace SauceDemoAutomation.Utilities
         [SetUp]
         public void Setup()
         {
-            test = extent.CreateTest(TestContext.CurrentContext.Test.Name);
-            browserName = TestContext.Parameters["browserName"];
+            test.Value = extent.CreateTest(TestContext.CurrentContext.Test.Name);
+            browserName = TestContext.Parameters["browserName"]!;
 
             // Get browser name from App.config
             if (browserName == null)
             {
                 browserName = ConfigurationManager.AppSettings["browser"];
             }
-            InitBrowser(browserName);
-            test.Info($"Test is running on browser: {browserName}");
+            InitBrowser(browserName!);
+            test.Value.Info($"Test is running on browser: {browserName}");
 
-            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
-            driver.Manage().Window.Maximize();
+            driver.Value!.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
+            driver.Value.Manage().Window.Maximize();
 
-            driver.Url = "https://www.saucedemo.com/";
+            driver.Value.Url = "https://www.saucedemo.com/";
         }
 
         /// <summary>
@@ -71,7 +70,7 @@ namespace SauceDemoAutomation.Utilities
             {
                 case "Edge":
                     new WebDriverManager.DriverManager().SetUpDriver(new EdgeConfig());
-                    driver = new EdgeDriver();
+                    driver.Value = new EdgeDriver();
                     break;
                 case "Chrome":
                     new WebDriverManager.DriverManager().SetUpDriver(new ChromeConfig());
@@ -80,11 +79,11 @@ namespace SauceDemoAutomation.Utilities
                     ChromeOptions options = new ChromeOptions();
                     options.AddUserProfilePreference("profile.password_manager_leak_detection", false);
 
-                    driver = new ChromeDriver(options);
+                    driver.Value = new ChromeDriver(options);
                     break;
                 case "Firefox":
                     new WebDriverManager.DriverManager().SetUpDriver(new FirefoxConfig());
-                    driver = new FirefoxDriver();
+                    driver.Value = new FirefoxDriver();
                     break;
                 default:
                     throw new ArgumentException($"Unsupported browser: {browserName}");
@@ -94,7 +93,7 @@ namespace SauceDemoAutomation.Utilities
         // Getter for the WebDriver instance
         public IWebDriver GetDriver()
         {
-            return driver;
+            return driver.Value!;
         }
 
         // Utility method to get a fresh instance of JsonReader for reading test data.
@@ -111,27 +110,26 @@ namespace SauceDemoAutomation.Utilities
             var stackTrace = TestContext.CurrentContext.Result.StackTrace;
 
             DateTime time = DateTime.Now;
-            string fileName = "Screenshot_" + time.ToString("yyyy/MM/dd_HH:mm:ss") + ".png";
+            string fileName = "Screenshot_" + time.ToString("yyyy-MM-dd-HH-mm-ss") + ".png";
 
             // Checks for tests status
             switch (status)
             {
                 case TestStatus.Failed:
-                    test.Fail("Test failed", CaptureScreenShot(driver, fileName));
-                    test.Log(Status.Fail, "test failed with logtrace" + stackTrace);
+                    test.Value!.Fail("Test failed", CaptureScreenShot(driver.Value!, fileName));
+                    test.Value.Log(Status.Fail, "test failed with logtrace" + stackTrace);
                     break;
                 case TestStatus.Passed:
-                    test.Pass("Test passed");
+                    test.Value!.Pass("Test passed");
                     break;
                 case TestStatus.Skipped:
-                    test.Skip("Test skipped");
+                    test.Value!.Skip("Test skipped");
                     break;
                 default:
-                    test.Warning("Test ended with unexpected status");
+                    test.Value!.Warning("Test ended with unexpected status");
                     break;
             }
-            driver?.Close();
-            driver?.Dispose();
+            driver.Value?.Quit();
         }
 
         // Ensures the report always gets flushed
@@ -139,6 +137,7 @@ namespace SauceDemoAutomation.Utilities
         public void TearDownReport()
         {
             extent.Flush();
+            driver?.Dispose();
         }
 
         // Generates screenshot for reports
