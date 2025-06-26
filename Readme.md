@@ -58,15 +58,16 @@ App.config defines which browser is launched by default.
 
 To run all tests:
 
-'bash'
-dotnet test
+- 'bash'
+- dotnet test
 
 To run tests by category:
 
-'bash'
-dotnet test --filter "Category=Smoke"
-dotnet test --filter "Category=Negative"
-dotnet test --filter "Category=End2End"
+- 'bash'
+
+- dotnet test --filter "Category=Smoke"
+- dotnet test --filter "Category=Negative"
+- dotnet test --filter "Category=End2End"
 
 ---
 
