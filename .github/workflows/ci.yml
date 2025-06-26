@@ -25,7 +25,11 @@ jobs:
     - name: Build
       run: dotnet build --no-restore
 
+    - name: Install latest Chrome
+      run: choco upgrade googlechrome -y
+
     - uses: browser-actions/setup-chrome@v1
+
     - run: chrome --version
 
     - name: Test
