@@ -1,11 +1,10 @@
 ﻿using SauceDemoAutomation.Pages;
 using SauceDemoAutomation.Utilities;
-using NUnit.Framework;
-using NUnit.Framework.Legacy;
 
 namespace SauceDemoAutomation.Tests
 {
     // Smoke test suite covering core app functionality
+    [Parallelizable(ParallelScope.All)]
     internal class Smoke : Base
     {
         // Verifies that the login page loads successfully and form elements are visible
